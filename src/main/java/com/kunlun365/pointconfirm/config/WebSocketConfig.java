@@ -10,8 +10,14 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 @EnableWebSocket
 public class WebSocketConfig implements WebSocketConfigurer {
 
+    private final PointWebSocketHandler pointWebSocketHandler;
+
+    public WebSocketConfig(PointWebSocketHandler pointWebSocketHandler) {
+        this.pointWebSocketHandler = pointWebSocketHandler;
+    }
+
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(new PointWebSocketHandler(), "/ws/point").setAllowedOrigins("*");
+        registry.addHandler(pointWebSocketHandler, "/ws/point").setAllowedOrigins("*");
     }
 }
